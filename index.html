@@ -8,8 +8,6 @@
         <link rel="stylesheet" href="lib/css/master.css" />
     </head>
 
-    <!-- Side note: using angular, the application controller is defined within the <body> tag-->
-    <!-- e.g. <body id="app" ng-controller="NBAController"> -->
     <body>
 
         <!-- Navigation -->
@@ -29,18 +27,15 @@
         <div id="league">
             <hr/>
             <h1>NBA App</h1>
-            <hr/>
 
             <!-- Form for creating new teams -->
             <div id="create">
                 <fieldset>
                     <legend>Team Creation</legend>
                     <form id="newTeam">
-                        <!-- ng-model is an angular attribute -->
-                        <input id="new-team-city" placeholder="Team City" ng-model="team.city" autofocus>
-                        <input id="new-team-name" placeholder="Team Name" ng-model="team.name">
-                        <!-- ng-click is an angular click-lisener -->
-                        <input type="submit" id="new-team-add" class="button" ng-click="addTeam($event)" value="Create" />
+                        <input type="text" id="new-team-city" placeholder="Team City" autofocus />
+                        <input type="text" id="new-team-name" placeholder="Team Name" />
+                        <input type="submit" id="new-team-add" class="button" value="Create" />
                     </form>
                 </fieldset>
             </div>
@@ -72,10 +67,12 @@
         <div id="about" class="hide">
             <hr/>
             <h1>About</h1>
-            <hr/>
-            <h4>Michael Mukhin</h4>
-            <h4><a href="mailto:hello@psitsmike.com">hello@psitsmike.com</a></h4>
-            <h4><a href="https://github.com/mmukhin" target="_blank">github.com/mmukhin</a></h4>
+
+            <fieldset>
+                <legend>Michael Mukhin</legend>
+                <a href="mailto:hello@psitsmike.com">hello@psitsmike.com</a><br/>
+                <a href="https://github.com/mmukhin" target="_blank">github.com/mmukhin</a>
+            </fieldset>
         </div>
 
         <!-- Templates -->
@@ -99,8 +96,8 @@
             <!-- determine whether or not to add the "hide" class -->
             <form>
                 <div style="display:inline-block;min-width: 500px;">
-                    <input id="edit-team-city" value="<%- city %>" placeholder="Team City" />
-                    <input id="edit-team-name" value="<%- name %>" placeholder="Team Name" />
+                    <input type="text" id="edit-team-city" value="<%- city %>" placeholder="Team City" />
+                    <input type="text" id="edit-team-name" value="<%- name %>" placeholder="Team Name" />
                 </div>
                 <div style="display:inline-block;min-width: 500px;">
                     <!-- click listeners bound to $scope -->

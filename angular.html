@@ -28,7 +28,6 @@
         <!-- App -->
         <hr/>
         <h1>NBA App</h1>
-        <hr/>
 
         <!-- Form for creating new teams -->
         <div>
@@ -37,8 +36,8 @@
                 <legend>Team Creation</legend>
                 <form id="newTeam">
                     <!-- ng-model is an angular attribute -->
-                    <input id="new-team-city" placeholder="Team City" ng-model="team.city" autofocus>
-                    <input id="new-team-name" placeholder="Team Name" ng-model="team.name">
+                    <input type="text" id="new-team-city" placeholder="Team City" ng-model="team.city" autofocus />
+                    <input type="text" id="new-team-name" placeholder="Team Name" ng-model="team.name" />
                     <!-- ng-click is an angular click-listener -->
                     <input type="submit" id="new-team-add" class="button" ng-click="addTeam($event)" value="Create" />
                 </form>
@@ -57,7 +56,7 @@
 
                 <form>
                     <!-- team filter by keyword -->
-                    <input  type="text" ng-model="searchText" placeholder="Search Keyword" />
+                    <input type="text" ng-model="searchText" placeholder="Search Keyword" />
                     <span ng-if="searchText">
                         {{(teams | filter:searchText).length}} teams found!
                     </span>
@@ -86,8 +85,8 @@
                     <!-- determine whether or not to add the "hide" class -->
                     <form ng-class="{ hide: ! team.editing }">
                         <div style="display:inline-block;min-width: 500px;">
-                            <input ng-model="team.city" placeholder="Team City" />
-                            <input ng-model="team.name" placeholder="Team Name" />
+                            <input type="text" ng-model="team.city" placeholder="Team City" />
+                            <input type="text" ng-model="team.name" placeholder="Team Name" />
                         </div>
                         <div style="display:inline-block;min-width: 500px;">
                             <!-- click listeners bound to $scope -->

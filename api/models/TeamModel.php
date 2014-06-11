@@ -161,7 +161,7 @@ class TeamModel extends AbstractModel {
 
     protected function startStorage()
     {
-        if (array_key_exists('teams', $_SESSION)) {
+        if (!array_key_exists('teams', $_SESSION)) {
             $_SESSION['teams'] = array();
         }
     }
