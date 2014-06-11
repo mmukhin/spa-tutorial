@@ -1,0 +1,106 @@
+<!-- Angular version of the NBA Application -->
+
+<!doctype html>
+<!-- define angular app module -->
+<html lang="en" ng-app="NBAapp">
+    <head>
+        <meta charset="utf-8">
+        <title>NBA Application</title>
+        <link rel="stylesheet" href="lib/css/master.css" />
+    </head>
+
+    <!-- define angular app controller -->
+    <body id="app" ng-controller="NBAController">
+
+        <!-- Navigation -->
+        <div class="nav floatleft">
+            <a href="teams">League</a>
+            <a href="about">About</a>
+        </div>
+
+        <div class="nav floatright">
+            <a href="index.html">Backbone</a>
+            <a href="angular.html" class="nolink">Angular</a>
+        </div>
+
+        <div style="clear:both;"></div>
+
+        <!-- App -->
+        <hr/>
+        <h1>NBA App</h1>
+        <hr/>
+
+        <!-- Form for creating new teams -->
+        <div>
+            <fieldset>
+                <!-- form for creating new teams -->
+                <legend>Team Creation</legend>
+                <form id="newTeam">
+                    <!-- ng-model is an angular attribute -->
+                    <input id="new-team-city" placeholder="Team City" ng-model="team.city" autofocus>
+                    <input id="new-team-name" placeholder="Team Name" ng-model="team.name">
+                    <!-- ng-click is an angular click-listener -->
+                    <input type="submit" id="new-team-add" class="button" ng-click="addTeam($event)" value="Create" />
+                </form>
+            </fieldset>
+        </div>
+
+        <br/>
+
+        <!-- League information -->
+        <div id="angular">
+            <fieldset>
+                <!-- auto-updating count of teams in the league -->
+                <legend>
+                    Teams in league: {{totalTeams}}
+                </legend>
+
+                <form>
+                    <!-- team filter by keyword -->
+                    <input  type="text" ng-model="searchText" placeholder="Search Keyword" />
+                    <span ng-if="searchText">
+                        {{(teams | filter:searchText).length}} teams found!
+                    </span>
+                </form>
+                <br/>
+
+                <div class="header-row">Link / City / Name</div>
+                <!-- loop over teams in $scope.teams -->
+                <div ng-repeat="team in teams | filter:searchText | orderBy:'name'">
+
+                    <!-- layout for displaying a team -->
+                    <!-- determine whether or not to add the "hide" class -->
+                    <div ng-class="{ hide: team.editing == true }">
+                        <div style="display:inline-block;min-width: 500px;">
+                            <a href="http://nba.com/{{ team.name.toLowerCase() }}" target="_blank">Team Link</a>
+                            {{team.city}} {{team.name}}
+                        </div>
+                        <div style="display:inline-block;min-width: 500px;">
+                            <!-- click listeners bound to $scope -->
+                            <input type="button" class="button" ng-click="editTeam(team)" value="Edit" />
+                            <input type="button" class="button" ng-click="removeTeam(team)" value="Delete" />
+                        </div>
+                    </div>
+
+                    <!-- layout for editing a team -->
+                    <!-- determine whether or not to add the "hide" class -->
+                    <form ng-class="{ hide: ! team.editing }">
+                        <div style="display:inline-block;min-width: 500px;">
+                            <input ng-model="team.city" placeholder="Team City" />
+                            <input ng-model="team.name" placeholder="Team Name" />
+                        </div>
+                        <div style="display:inline-block;min-width: 500px;">
+                            <!-- click listeners bound to $scope -->
+                            <input type="submit" class="button" ng-click="saveEditing(team)" value="Save" />
+                            <input type="button" class="button" ng-click="cancelEditing(team)" value="Cancel" />
+                        </div>
+                    </form>
+                </div>
+            </fieldset>
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.js"></script>
+        <script src="lib/scripts/app-angular.js"></script>
+    </body>
+</html>

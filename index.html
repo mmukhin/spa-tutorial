@@ -1,0 +1,119 @@
+<!-- Backbone version of the NBA Application -->
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>NBA Application</title>
+        <link rel="stylesheet" href="lib/css/master.css" />
+    </head>
+
+    <!-- Side note: using angular, the application controller is defined within the <body> tag-->
+    <!-- e.g. <body id="app" ng-controller="NBAController"> -->
+    <body>
+
+        <!-- Navigation -->
+        <div class="nav floatleft">
+            <a href="league" id="league-link">League</a>
+            <a href="about" id="about-link">About</a>
+        </div>
+
+        <div class="nav floatright">
+            <a href="index.html" class="nolink">Backbone</a>
+            <a href="angular.html">Angular</a>
+        </div>
+
+        <div style="clear:both;"></div>
+
+        <!-- App View -->
+        <div id="league">
+            <hr/>
+            <h1>NBA App</h1>
+            <hr/>
+
+            <!-- Form for creating new teams -->
+            <div id="create">
+                <fieldset>
+                    <legend>Team Creation</legend>
+                    <form id="newTeam">
+                        <!-- ng-model is an angular attribute -->
+                        <input id="new-team-city" placeholder="Team City" ng-model="team.city" autofocus>
+                        <input id="new-team-name" placeholder="Team Name" ng-model="team.name">
+                        <!-- ng-click is an angular click-lisener -->
+                        <input type="submit" id="new-team-add" class="button" ng-click="addTeam($event)" value="Create" />
+                    </form>
+                </fieldset>
+            </div>
+
+            <br/>
+
+            <!-- League information -->
+            <fieldset>
+                <!-- Auto-updating count of teams in the league -->
+                <legend>Teams in league: <span id="backbone-number-teams"></span></legend>
+
+                <form>
+                    <!-- Team filter by keyword -->
+                    <input type="text" id="backbone-search" placeholder="Search Keyword" />
+                    <span id="backbone-search-info"></span>
+                </form>
+                <br/>
+
+                <!-- Loop over teams in $scope.teams -->
+                <div>
+                    <div class="header-row">Link / City / Name</div>
+                </div>
+                <div id="backbone-teams">
+                </div>
+            </fieldset>
+        </div>
+
+        <!-- AboutView -->
+        <div id="about" class="hide">
+            <hr/>
+            <h1>About</h1>
+            <hr/>
+            <h4>Michael Mukhin</h4>
+            <h4><a href="mailto:hello@psitsmike.com">hello@psitsmike.com</a></h4>
+            <h4><a href="https://github.com/mmukhin" target="_blank">github.com/mmukhin</a></h4>
+        </div>
+
+        <!-- Templates -->
+        <!-- Template: viewing a team -->
+        <script type="text/template" id="backbone-view-team">
+            <!-- layout for displaying a team -->
+            <!-- determine whether or not to add the "hide" class -->
+            <div style="display:inline-block;min-width: 500px;">
+                <a href="http://nba.com/<%= name.toLowerCase() %>" target="_blank">Team Link</a>
+                <%- city %> <%- name %>
+            </div>
+            <div style="display:inline-block;min-width: 500px;">
+                <!-- click listeners bound to $scope -->
+                <!-- @todo update -->
+                <input type="button" id="backbone-team-edit" class="button" value="Edit" />
+                <input type="button" id="backbone-team-delete" class="button" value="Delete" />
+            </div>
+        </script>
+        <!-- Template: editing a team -->
+        <script type="text/template" id="backbone-edit-team">
+            <!-- determine whether or not to add the "hide" class -->
+            <form>
+                <div style="display:inline-block;min-width: 500px;">
+                    <input id="edit-team-city" value="<%- city %>" placeholder="Team City" />
+                    <input id="edit-team-name" value="<%- name %>" placeholder="Team Name" />
+                </div>
+                <div style="display:inline-block;min-width: 500px;">
+                    <!-- click listeners bound to $scope -->
+                    <input type="submit" id="backbone-team-save" class="button" value="Save" />
+                    <input type="button" id="backbone-team-cancel" class="button" value="Cancel" />
+                </div>
+            </form>
+        </script>
+
+        <!-- Scripts -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+        <script src="lib/scripts/underscore.js"></script>
+        <script src="lib/scripts/backbone.js"></script>
+        <script src="lib/scripts/app-backbone.js"></script>
+    </body>
+</html>
